@@ -10,7 +10,7 @@ export const AIContributionsSection: React.FC<AIContributionsSectionProps> = ({
   contributions,
 }) => {
   return (
-    <section id="contributions" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/[0.08]">
+    <section id="contributions" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto border-t border-white/[0.08]">
       {/* Section Header */}
       <div className="mb-14 text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-400/20 bg-sky-500/10 text-xs font-semibold text-sky-300 mb-3">
@@ -116,3 +116,4 @@ export const AIContributionsSection: React.FC<AIContributionsSectionProps> = ({
     </section>
   );
 };
+        
