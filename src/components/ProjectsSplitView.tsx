@@ -24,7 +24,7 @@ export const ProjectsSplitView: React.FC<ProjectsSplitViewProps> = ({
   const activeProject = projects.find((p) => p.id === activeProjectId) || filteredProjects[0] || projects[0];
 
   return (
-    <section id="projects" className="py-24 px-6 max-w-7xl mx-auto">
+    <section id="projects" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
       {/* Section Header */}
       <div className="mb-12">
         <div className="flex items-center gap-2 text-xs text-sky-400 font-semibold tracking-wider uppercase mb-2">
