@@ -25,7 +25,7 @@ export const RobotDialogBubble: React.FC<RobotDialogBubbleProps> = ({
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: -10, scale: 0.95 }}
         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-md p-4 rounded-2xl bg-[#0f1322]/95 border border-sky-500/30 shadow-[0_12px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl relative select-none"
+        className="w-full max-w-full sm:max-w-md p-3.5 sm:p-4 rounded-2xl bg-[#0f1322]/95 border border-sky-500/30 shadow-[0_12px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl relative select-none"
       >
         {/* Glow accent */}
         <div className="absolute -top-1 -right-1 w-20 h-20 bg-sky-500/10 rounded-full blur-xl pointer-events-none" />
@@ -93,3 +93,4 @@ export const RobotDialogBubble: React.FC<RobotDialogBubbleProps> = ({
     </AnimatePresence>
   );
 };
+    
