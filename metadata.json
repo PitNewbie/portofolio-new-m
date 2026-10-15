@@ -1,0 +1,6 @@
+{
+  "name": "StarPit — Portfolio & 3D Interactive Companion",
+  "description": "Portofolio profesional StarPit dengan visual modern mewah glassmorphism, robot 3D interaktif 360 derajat, showcase proyek split-screen, dan eksplorasi kontribusi AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
