@@ -21,7 +21,7 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="about" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/[0.08]">
+    <section id="about" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto border-t border-white/[0.08]">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         {/* Left Column: About StarPit (5 columns) */}
         <div className="lg:col-span-5 space-y-6">
@@ -196,3 +196,4 @@ export const ContactSection: React.FC = () => {
     </section>
   );
 };
+    
