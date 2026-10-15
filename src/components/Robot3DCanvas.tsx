@@ -174,8 +174,9 @@ export const Robot3DCanvas: React.FC<Robot3DCanvasProps> = ({
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
-    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-    camera.position.set(0, 0.4, 5.2);
+    const isMobile = width < 640;
+    const camera = new THREE.PerspectiveCamera(isMobile ? 44 : 38, width / height, 0.1, 100);
+    camera.position.set(0, isMobile ? 0.15 : 0.35, isMobile ? 5.7 : 5.2);
     cameraRef.current = camera;
 
     // 2. High-performance WebGL Renderer
@@ -534,6 +535,9 @@ export const Robot3DCanvas: React.FC<Robot3DCanvasProps> = ({
       if (!container || !rendererRef.current || !cameraRef.current) return;
       const w = container.clientWidth;
       const h = container.clientHeight;
+      const isMob = w < 640;
+      cameraRef.current.fov = isMob ? 44 : 38;
+      cameraRef.current.position.set(0, isMob ? 0.15 : 0.35, isMob ? 5.7 : 5.2);
       cameraRef.current.aspect = w / h;
       cameraRef.current.updateProjectionMatrix();
       rendererRef.current.setSize(w, h);
@@ -634,7 +638,7 @@ export const Robot3DCanvas: React.FC<Robot3DCanvasProps> = ({
   ];
 
   return (
-    <div className="relative w-full h-full min-h-[460px] lg:min-h-[580px] flex flex-col items-center select-none overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-[#0e121d]/80 via-[#090b12]/90 to-[#07080c]">
+    <div className="relative w-full h-[380px] sm:h-[480px] lg:h-[580px] min-h-[350px] flex flex-col items-center select-none overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-[#0e121d]/80 via-[#090b12]/90 to-[#07080c]">
       {/* 3D WebGL Canvas Container */}
       <div
         ref={mountRef}
@@ -643,30 +647,30 @@ export const Robot3DCanvas: React.FC<Robot3DCanvasProps> = ({
       />
 
       {/* Top Floating Helper Badge */}
-      <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none text-xs text-slate-400">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 backdrop-blur-md">
-          <Eye className="w-3.5 h-3.5 text-sky-400" />
-          <span className="font-medium text-slate-200">StarBot 3D Companion</span>
+      <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none text-xs text-slate-400">
+        <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-black/50 border border-white/10 backdrop-blur-md">
+          <Eye className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+          <span className="font-medium text-slate-200 text-[11px] sm:text-xs">StarBot 3D</span>
           <span className="text-slate-500">·</span>
-          <span className="text-slate-400">Putar 360° Drag & Drop</span>
+          <span className="text-slate-400 text-[11px] sm:text-xs">Putar 360° Drag</span>
         </div>
-        <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/40 border border-white/10 backdrop-blur-md text-[11px] text-slate-400">
-          <span>{isInteracting ? 'Sedang Diputar' : 'Klik untuk Reaksi'}</span>
+        <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-black/50 border border-white/10 backdrop-blur-md text-[10px] sm:text-[11px] text-slate-300">
+          <span>{isInteracting ? 'Memutar...' : 'Bisa Diajak Interaksi'}</span>
         </div>
       </div>
 
       {/* Sleek Collapsible Bottom Dock (Zero Viewport Occlusion Discipline) */}
-      <div className="w-full px-4 pb-4 pt-2 z-10">
-        <div className="max-w-xl mx-auto p-2 rounded-xl bg-[#0d101a]/90 border border-white/[0.09] shadow-2xl backdrop-blur-md flex flex-wrap items-center justify-between gap-2">
+      <div className="w-full px-3 pb-3 pt-1 z-10">
+        <div className="max-w-xl mx-auto p-1.5 sm:p-2 rounded-xl bg-[#0d101a]/95 border border-white/[0.1] shadow-2xl backdrop-blur-md flex items-center justify-between gap-1.5 sm:gap-2">
           {/* Emotion Switcher */}
-          <div className="flex items-center gap-1 overflow-x-auto py-0.5">
+          <div className="flex items-center gap-1 overflow-x-auto py-0.5 no-scrollbar scroll-smooth">
             {emotions.map((item) => (
               <button
                 key={item.key}
                 onClick={() => onEmotionChange(item.key)}
-                className={`px-2.5 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap shrink-0 ${
+                className={`px-2 py-1 sm:px-2.5 sm:py-1.5 text-[11px] sm:text-xs font-medium rounded-lg transition-all whitespace-nowrap shrink-0 ${
                   currentEmotion === item.key
-                    ? 'bg-sky-500/20 text-sky-300 border border-sky-400/40 shadow-sm'
+                    ? 'bg-sky-500/20 text-sky-300 border border-sky-400/40 shadow-sm font-semibold'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
                 }`}
               >
@@ -676,7 +680,7 @@ export const Robot3DCanvas: React.FC<Robot3DCanvasProps> = ({
           </div>
 
           {/* Quick Action Controls */}
-          <div className="flex items-center gap-1.5 shrink-0">
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
             <button
               onClick={() => setAutoRotate((prev) => !prev)}
               className={`p-1.5 rounded-lg border text-xs font-medium transition-colors flex items-center gap-1 ${
@@ -687,7 +691,7 @@ export const Robot3DCanvas: React.FC<Robot3DCanvasProps> = ({
               title={autoRotate ? 'Matikan Auto-Rotate' : 'Nyalakan Auto-Rotate 360°'}
             >
               <RotateCw className={`w-3.5 h-3.5 ${autoRotate ? 'animate-spin' : ''}`} style={{ animationDuration: '6s' }} />
-              <span className="text-[11px] hidden sm:inline">360°</span>
+              <span className="text-[10px] sm:text-[11px] hidden sm:inline">360°</span>
             </button>
 
             <button
@@ -700,11 +704,11 @@ export const Robot3DCanvas: React.FC<Robot3DCanvasProps> = ({
 
             <button
               onClick={onRobotClick}
-              className="px-3 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-md shadow-sky-500/20"
+              className="px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-[11px] sm:text-xs transition-colors flex items-center gap-1 shadow-md shadow-sky-500/20 whitespace-nowrap"
               title="Ajak StarBot Berbicara"
             >
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span>Ajak Bicara</span>
+              <MessageSquare className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <span>Bicara</span>
             </button>
           </div>
         </div>
